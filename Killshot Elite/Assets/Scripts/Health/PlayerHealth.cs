@@ -1,8 +1,10 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [Header("Health Bar")]
     public float maxHealth = 100f;
     public float chipSpeed = 2f;
     public Image frontHealthBar;
@@ -12,24 +14,47 @@ public class PlayerHealth : MonoBehaviour
     private float _lerpTimer;
     private int _speedAnimationHealOrDamage = 5;
 
-    // Start is called before the first frame update
+    [Header("Damage Overlay")]
+    public Image Overlay;
+    public float Duration;
+    public float FadeSpeed;
+
+    private float _durationTimer;
+
     void Start()
     {
         _health = maxHealth;
+        Overlay.color = new Color(Overlay.color.r, Overlay.color.g, Overlay.color.b, 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
         _health = Mathf.Clamp(_health, 0, maxHealth);
         UpdateHealthUI();
-        if (Input.GetKeyDown(KeyCode.Q))
+
+        if (Overlay.color.a > 0)
         {
-            TakeDamage(Random.Range(5, 10));
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            RestoreHealth(Random.Range(5, 10));
+            if(_health < 30)
+            {
+                return;
+            }
+            _durationTimer += Time.deltaTime;
+            if (_durationTimer > Duration)
+            {
+                //fade ImageBlood
+                float tempAlpha = Overlay.color.a;
+                tempAlpha -= Time.deltaTime * FadeSpeed;
+                Overlay.color = new Color(Overlay.color.r, Overlay.color.g, Overlay.color.b, tempAlpha);
+            }
+
+            //if (Input.GetKeyDown(KeyCode.Q))
+            //{
+            //    TakeDamage(Random.Range(5, 10));
+            //}
+            //if (Input.GetKeyDown(KeyCode.C))
+            //{
+            //    RestoreHealth(Random.Range(5, 10));
+            //}
         }
     }
 
@@ -62,6 +87,8 @@ public class PlayerHealth : MonoBehaviour
     {
         _health -= damage;
         _lerpTimer = 0f;
+        _durationTimer = 0f;
+        Overlay.color = new Color(Overlay.color.r, Overlay.color.g, Overlay.color.b, 1);
     }
     public void RestoreHealth(float healAmount)
     {
