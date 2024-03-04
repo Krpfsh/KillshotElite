@@ -6,12 +6,11 @@ using UnityEngine;
 public class StateMachine : MonoBehaviour
 {
     public BaseState ActiveState;
-    public PatrolState PatrolState;
+
 
     public void Initialize()
     {
-        PatrolState = new PatrolState();
-        ChangeState(PatrolState);
+        ChangeState(new PatrolState());
     }
     private void Update()
     {
@@ -31,7 +30,7 @@ public class StateMachine : MonoBehaviour
         if(ActiveState != null)
         {
             //setup new state
-            ActiveState.StateMachine = this;
+            ActiveState.stateMachine = this;
             ActiveState.enemy = GetComponent<Enemy>();
             ActiveState.Enter();
         }
