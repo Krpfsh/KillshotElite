@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 {
     public NavMeshAgent Agent { get => _agent; }
     public GameObject Player { get => _player; }
+    public Vector3 LastKnowPos { get => _lastKnowPos; set => _lastKnowPos = value; }
 
     public Path Path;
     [Header("Sight Values")]
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour
     private StateMachine _stateMachine;
     private NavMeshAgent _agent;
     private GameObject _player;
+    private Vector3 _lastKnowPos;
 
     private void Start()
     {

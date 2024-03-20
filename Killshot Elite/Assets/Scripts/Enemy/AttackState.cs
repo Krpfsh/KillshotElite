@@ -33,13 +33,14 @@ public class AttackState : BaseState
                 _moveTimer = 0;
 
             }
+            enemy.LastKnowPos = enemy.Player.transform.position;
         }
         else
         {
             _losePlayerTimer += Time.deltaTime;
             if(_losePlayerTimer > 8)
             {
-                stateMachine.ChangeState(new PatrolState());
+                stateMachine.ChangeState(new SearchState());
             }
         }
     }

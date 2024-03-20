@@ -46,15 +46,6 @@ public class PlayerHealth : MonoBehaviour
                 tempAlpha -= Time.deltaTime * FadeSpeed;
                 Overlay.color = new Color(Overlay.color.r, Overlay.color.g, Overlay.color.b, tempAlpha);
             }
-
-            //if (Input.GetKeyDown(KeyCode.Q))
-            //{
-            //    TakeDamage(Random.Range(5, 10));
-            //}
-            //if (Input.GetKeyDown(KeyCode.C))
-            //{
-            //    RestoreHealth(Random.Range(5, 10));
-            //}
         }
     }
 
@@ -88,7 +79,7 @@ public class PlayerHealth : MonoBehaviour
         _health -= damage;
         _lerpTimer = 0f;
         _durationTimer = 0f;
-        Overlay.color = new Color(Overlay.color.r, Overlay.color.g, Overlay.color.b, 1);
+        Overlay.color = new Color(Overlay.color.r, Overlay.color.g, Overlay.color.b, 0.4f);
     }
     public void RestoreHealth(float healAmount)
     {
